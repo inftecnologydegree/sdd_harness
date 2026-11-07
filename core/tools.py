@@ -33,3 +33,18 @@ def update_task_markdown(filename: str, completed_task: str) -> str:
             return f"Notice: Uncompleted task matching '{completed_task}' not found."
     except Exception as e:
         return f"Error updating task file: {str(e)}"
+# Add this at the bottom of core/tools.py
+
+def create_code_file(filename: str, source_code: str) -> str:
+    """Creates or updates a source code file inside the workspace safely."""
+    filepath = os.path.join(WORKSPACE_DIR, filename)
+    try:
+        # Standard safety path verification
+        if ".." in filename or os.path.isabs(filename):
+            return "Error: Path manipulation detected. Stay inside workspace."
+            
+        with open(filepath, "w", encoding="utf-8") as f:
+            f.write(source_code)
+        return f"Success: Created file '{filename}' with written source code."
+    except Exception as e:
+        return f"Error creating file: {str(e)}"

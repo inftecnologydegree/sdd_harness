@@ -1,0 +1,1 @@
+- [x] Create a secure logging module named logger.py
